@@ -1,0 +1,14 @@
+name: 'Semantic Version Tagging'
+description: 'Bump and push git tag on merge'
+author: 'senfung'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+outputs:
+  new_tag:
+    description: 'Generated tag'
+  part:
+    description: 'The part of version which was bumped'
+branding:
+  icon: 'git-merge'  
+  color: 'purple'
