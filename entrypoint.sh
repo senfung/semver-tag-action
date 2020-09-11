@@ -2,9 +2,6 @@
 
 set -o pipefail
 
-echo "here"
-
-
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
@@ -13,11 +10,7 @@ dryrun=${DRY_RUN:-false}
 initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
-echo "it goes"
-
-echo "${GITHUB_WORKSPACE}/${source}"
 cd ${GITHUB_WORKSPACE}/${source}
-ls
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo "current_branch = $current_branch"
 
@@ -35,8 +28,8 @@ git fetch --tags
 
 # get latest tag that looks like a semver (with or without v)
 case "$tag_context" in
-    *repo*) tag=$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1);;
-    *branch*) tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1);;
+    *repo*) tag=$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$*' | head -n1);;
+    *branch*) tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$*' | head -n1);;
     * ) echo "Unrecognised context"; exit 1;;
 esac
 
