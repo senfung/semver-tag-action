@@ -35,6 +35,8 @@ case "$tag_context" in
     * ) echo "Unrecognised context"; exit 1;;
 esac
 
+echo $tag
+
 # if there are none, start tags at INITIAL_VERSION which defaults to 0.0.0
 if [ -z "$tag" ]
 then
@@ -43,6 +45,8 @@ then
 else
     log=$(git log $tag..HEAD --pretty='%B')
 fi
+
+echo $tag
 
 # get current commit hash for tag
 tag_commit=$(git rev-list -n 1 $tag)
