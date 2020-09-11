@@ -2,19 +2,24 @@
 
 set -o pipefail
 
+echo "here"
+
+
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
+source=${SOURCE:-.}
 dryrun=${DRY_RUN:-false}
 initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
+echo "it goes"
 
-# testing
-with_v=true
-release_branches=master #dev
-
+echo "${GITHUB_WORKSPACE}/${source}"
+cd ${GITHUB_WORKSPACE}/${source}
+ls
 current_branch=$(git rev-parse --abbrev-ref HEAD)
+echo "current_branch = $current_branch"
 
 pre_release="true"
 IFS=',' read -ra branch <<< "$release_branches"
@@ -35,6 +40,8 @@ case "$tag_context" in
     * ) echo "Unrecognised context"; exit 1;;
 esac
 
+echo $tag
+
 # if there are none, start tags at INITIAL_VERSION which defaults to 0.0.0
 if [ -z "$tag" ]
 then
@@ -43,6 +50,8 @@ then
 else
     log=$(git log $tag..HEAD --pretty='%B')
 fi
+
+echo $tag
 
 # get current commit hash for tag
 tag_commit=$(git rev-list -n 1 $tag)
