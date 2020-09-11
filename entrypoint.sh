@@ -9,10 +9,7 @@ dryrun=${DRY_RUN:-false}
 initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
-
-# testing
-with_v=true
-release_branches=master #dev
+cd ${GITHUB_WORKSPACE}/${source}
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
