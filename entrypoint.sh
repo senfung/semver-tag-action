@@ -5,6 +5,7 @@ set -o pipefail
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
+source=${SOURCE:-.}
 dryrun=${DRY_RUN:-false}
 initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
