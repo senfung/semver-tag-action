@@ -10,9 +10,11 @@ dryrun=${DRY_RUN:-false}
 initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
+echo "${GITHUB_WORKSPACE}/${source}"
 cd ${GITHUB_WORKSPACE}/${source}
-
+ls
 current_branch=$(git rev-parse --abbrev-ref HEAD)
+echo "current_branch = $current_branch"
 
 pre_release="true"
 IFS=',' read -ra branch <<< "$release_branches"
