@@ -2,7 +2,6 @@
 
 set -o pipefail
 
-
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
@@ -12,8 +11,8 @@ initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
 cd ${GITHUB_WORKSPACE}/${source}
-
 current_branch=$(git rev-parse --abbrev-ref HEAD)
+echo "current_branch = $current_branch"
 
 pre_release="true"
 IFS=',' read -ra branch <<< "$release_branches"
