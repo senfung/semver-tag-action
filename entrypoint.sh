@@ -2,6 +2,7 @@
 
 set -o pipefail
 
+
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
@@ -25,6 +26,9 @@ done
 echo "pre_release = $pre_release"
 
 git fetch --tags
+
+echo "$(git for-each-ref --sort=-v:refname --format '%(refname)')"
+echo "$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$*')"
 
 # get latest tag that looks like a semver (with or without v)
 case "$tag_context" in
