@@ -29,12 +29,34 @@ echo "$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3
 
 # get latest tag that looks like a semver (with or without v)
 case "$tag_context" in
-    *repo*) tag=$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+*' | head -n1);;
-    *branch*) tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+*' | head -n1);;
+    *repo*) beta_tag=$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+*' | head -n1);;
+    *branch*) beta_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+*' | head -n1);;
+    * ) echo "Unrecognised context"; exit 1;;
+esac
+case "$tag_context" in
+    *repo*) release_tag=$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1);;
+    *branch*) release_tag=$(git tag --list --merged HEAD --sort=-committerdate | grep -E '^v?[0-9]+.[0-9]+.[0-9]+$' | head -n1);;
     * ) echo "Unrecognised context"; exit 1;;
 esac
 
+echo "beta = $beta_tag"
+echo "release = $release_tag"
+
+beta_version_base=$(echo $beta_tag | cut -f1 -d"-")
+echo $beta_version_base
+comparison=$(semver compare $beta_version_base $release_tag)
+echo $comparison
+if [[ $comparison == 1 ]]
+then 
+    echo "beta is newer"
+    tag=$beta_tag
+else
+    echo "release is newer"
+    tag=$release_tag
+fi
+
 echo "previous_tag = $tag"
+
 
 # if there are none, start tags at INITIAL_VERSION which defaults to 0.0.0
 if [ -z "$tag" ]
