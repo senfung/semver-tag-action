@@ -16,13 +16,9 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo "current_branch = $current_branch"
 
 pre_release="true"
-IFS=',' read -ra branch <<< "$release_branches"
-for b in "${branch[@]}"; do
-    if [[ "${current_branch}" =~ $b ]]
-    then
-        pre_release="false"
-    fi
-done
+if [ "$current_branch" == "$release_branch" ]; then
+    pre_release="false"
+fi
 echo "pre_release = $pre_release"
 
 git fetch --tags
