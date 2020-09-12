@@ -84,7 +84,7 @@ then
     tag=$(echo $tag | sed -e "s/^v//""")
 fi
 
-if [[ $pre_release == "false" ]]
+if [[ $pre_release == "true" ]]
 then
     if [[ $tag == *"beta"* ]]
     then
