@@ -12,8 +12,12 @@ initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 
 cd ${GITHUB_WORKSPACE}/${source}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 80f8cc9d16249a079792ddabaea0474b2fd14bbb
 current_branch=$(git rev-parse --abbrev-ref HEAD)
+echo "current_branch = $current_branch"
 
 pre_release="true"
 IFS=',' read -ra branch <<< "$release_branches"
