@@ -2,7 +2,10 @@
 
 set -o pipefail
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f77a2d67ff5c62271a0f07d53386d5a65947b7ce
 default_semvar_bump=${DEFAULT_BUMP:-patch}
 with_v=${WITH_V:-false}
 release_branch=${RELEASE_BRANCH:-master}
@@ -13,9 +16,12 @@ tag_context=${TAG_CONTEXT:-repo}
 
 cd ${GITHUB_WORKSPACE}/${source}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 80f8cc9d16249a079792ddabaea0474b2fd14bbb
+=======
+>>>>>>> f77a2d67ff5c62271a0f07d53386d5a65947b7ce
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo "current_branch = $current_branch"
 
