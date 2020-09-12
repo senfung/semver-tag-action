@@ -78,13 +78,13 @@ function bump-level {
     esac
 }
 
-if $pre_release
 
 if [[ $tag == "v"* ]]
 then
     tag=$(echo $tag | sed -e "s/^v//""")
 fi
 
+if [[ $pre_release == "false" ]]
 then
     if [[ $tag == *"beta"* ]]
     then
