@@ -23,9 +23,7 @@ echo "pre_release = $pre_release"
 
 git fetch --tags
 
-echo "$(git for-each-ref --sort=-v:refname --format '%(refname)')"
 echo "$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- )"
-echo "$(git for-each-ref --sort=-v:refname --format '%(refname)' | cut -d / -f 3- | grep -E '^v?[0-9]+.[0-9]+.[0-9]+*')"
 
 # get latest tag that looks like a semver (with or without v)
 case "$tag_context" in
@@ -56,7 +54,6 @@ else
 fi
 
 echo "previous_tag = $tag"
-
 
 # if there are none, start tags at INITIAL_VERSION which defaults to 0.0.0
 if [ -z "$tag" ]
